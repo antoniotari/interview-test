@@ -1,7 +1,6 @@
 package com.antoniotari.guestlogixchallenge.ui.fragments.detail;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,11 @@ import com.antoniotari.guestlogixchallenge.models.ShowCharacter;
 import com.antoniotari.guestlogixchallenge.network.RickAndMortyImageLoader;
 
 public class CharacterDetail extends Fragment {
+    // TODO: implement MVP
+    // TODO: implement MVP
+    // TODO: implement MVP
+    // TODO: implement MVP
+    // TODO: implement MVP
 
     private static final String KEY_ID = "fragments.detail.id";
 
@@ -30,11 +34,6 @@ public class CharacterDetail extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         NetworkImageView imageView = view.findViewById(R.id.image);
@@ -44,6 +43,7 @@ public class CharacterDetail extends Fragment {
         TextView originView = view.findViewById(R.id.origin);
         Switch switchAlive = view.findViewById(R.id.alive_switch);
 
+        // TODO: implement MVP
         ShowCharacter character = DataSource.getInstance().getCharacterWithId(getArguments().getInt(KEY_ID));
         nameView.setText(character.getName());
         typeView.setText(character.getType());

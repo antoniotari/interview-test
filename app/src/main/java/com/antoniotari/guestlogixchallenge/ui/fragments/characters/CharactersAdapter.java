@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.antoniotari.guestlogixchallenge.R;
@@ -20,11 +21,13 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     public CharactersAdapter(List<ShowCharacter> items, OnListFragmentClickListener<ShowCharacter> listener) {
         mValues = items;
         mListener = listener;
-    }
 
-    public void setItems(List<ShowCharacter> items) {
-        mValues.clear();
-        mValues.addAll(items);
+        Collections.sort(mValues, (final ShowCharacter o1, final ShowCharacter o2) -> {
+                // put alive characters in front
+                int sortIndex1 = o1.getId() + (!o1.isAlive()?1000:0);
+                int sortIndex2 = o2.getId() + (!o2.isAlive()?1000:0);
+                return sortIndex1 - sortIndex2;
+            });
     }
 
     @Override
@@ -46,6 +49,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        // TODO: add image
         final View mView;
         final TextView charNameView;
         final TextView charSpeciesView;
@@ -65,6 +69,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
             charNameView.setText(showCharacter.getName());
             charSpeciesView.setText(showCharacter.getSpecies());
             charStatusView.setText(showCharacter.getStatus());
+            charStatusView.setBackgroundColor(mView.getContext().getResources().getColor(showCharacter.isAlive()?android.R.color.holo_green_light:android.R.color.holo_red_light));
         }
     }
 }
