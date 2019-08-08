@@ -11,6 +11,7 @@ import com.antoniotari.guestlogixchallenge.models.Episode;
 import com.antoniotari.guestlogixchallenge.models.ShowCharacter;
 import com.antoniotari.guestlogixchallenge.network.CharactersRequest;
 import com.antoniotari.guestlogixchallenge.network.EpisodesRequest;
+import com.antoniotari.guestlogixchallenge.network.RickAndMortyImageLoader;
 
 public class SplashPresenter implements SplashContract.Presenter {
 
@@ -20,6 +21,9 @@ public class SplashPresenter implements SplashContract.Presenter {
     public SplashPresenter(SplashContract.View view, Context context) {
         this.view = view;
         weakContext = new WeakReference<>(context.getApplicationContext());
+
+        // TODO: move this in onCreate of Application class
+        RickAndMortyImageLoader.getInstance().init(context.getApplicationContext());
     }
 
     @Override
