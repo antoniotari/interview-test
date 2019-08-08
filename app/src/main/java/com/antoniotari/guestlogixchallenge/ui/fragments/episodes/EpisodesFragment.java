@@ -43,6 +43,7 @@ public class EpisodesFragment extends BaseListFragment<Episode> {
 
     @Override
     public OnListFragmentClickListener<Episode> getListener() {
+        // TODO: cast check
         return (OnListFragmentClickListener<Episode>)getActivity();
     }
 

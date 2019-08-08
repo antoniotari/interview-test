@@ -11,7 +11,6 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
     private SplashContract.Presenter presenter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
