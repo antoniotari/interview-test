@@ -3,12 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@android:color/background_dark"
     android:layout_height="match_parent"
     tools:context=".ui.activities.SplashActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="66dp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="31sp"
+        android:text="LOADING DATA, PLEASE WAIT"
+        android:layout_gravity="top"/>
 
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="66dp"
         android:indeterminate="true"/>
 
 </FrameLayout>
