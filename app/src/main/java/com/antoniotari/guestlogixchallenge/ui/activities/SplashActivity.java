@@ -4,56 +4,51 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 import com.antoniotari.guestlogixchallenge.R;
-import com.antoniotari.guestlogixchallenge.data.DataSource;
-import com.antoniotari.guestlogixchallenge.models.Episode;
-import com.antoniotari.guestlogixchallenge.models.ShowCharacter;
-import com.antoniotari.guestlogixchallenge.network.CharactersRequest;
-import com.antoniotari.guestlogixchallenge.network.EpisodesRequest;
+import com.antoniotari.guestlogixchallenge.ui.activities.SplashContract.Presenter;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements SplashContract.View {
+
+    private SplashContract.Presenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        getEpisodes();
+        setPresenter(getPresenter());
+        presenter.onViewCreated();
     }
 
-    private void getCharacters() {
-        new CharactersRequest(this) {
-
-            @Override
-            public void onResponse(final Set<ShowCharacter> characters) {
-                DataSource.getInstance().setCharacters(new ArrayList<ShowCharacter>(characters));
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
-            }
-
-            @Override
-            public void onError(final String error) {
-                // TODO: handle errors
-            }
-        }.makeRequest();
+    @Override
+    public void finishAndGoMain() {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        finish();
     }
 
-    private void getEpisodes() {
-        new EpisodesRequest(this) {
+    @Override
+    public void setPresenter(final Presenter presenter) {
+        this.presenter = presenter;
+    }
 
-            @Override
-            public void onResponse(final Set<Episode> episodes) {
-                DataSource.getInstance().setEpisodes(new ArrayList<Episode>(episodes));
-                getCharacters();
-            }
+    @Override
+    public Presenter getPresenter() {
+        if (presenter == null) {
+            this.presenter = new SplashPresenter(this, getApplicationContext());
+        }
 
-            @Override
-            public void onError(final String error) {
-                // TODO: handle errors
-            }
-        }.makeRequest();
+        return presenter;
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_splash;
     }
 }

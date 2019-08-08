@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.antoniotari.guestlogixchallenge.R;
 import com.antoniotari.guestlogixchallenge.models.Episode;
@@ -33,10 +32,8 @@ public class MainActivity extends AppCompatActivity implements View {
     public void onBackPressed(){
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 1) {
-            Log.i("MainActivity", "popping backstack");
             fm.popBackStack();
         } else {
-            Log.i("MainActivity", "nothing on backstack, calling super");
             finish();
         }
     }
@@ -45,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(R.id.fragment_container, newFragment, null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

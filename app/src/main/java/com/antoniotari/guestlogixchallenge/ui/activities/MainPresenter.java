@@ -15,7 +15,6 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onViewCreated() {
         view.loadEpisodesFragment();
-        //view.loadFragment(EpisodesFragment.newInstance());
     }
 
     @Override
